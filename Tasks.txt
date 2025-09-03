@@ -1,0 +1,51 @@
+Jab Bhi project bnao to ek chij ka dhyan rkhna hai 
+    --> Seperation of Concern (Jo jiska kaam whi kre)
+        --> Templates --> views Folder
+        --> Static Files --> public Folder
+        --> Routes --> routes Folder
+        --> Collections/Schema --> Models
+        
+While working with DB most of the functions return a promise and to avoid the chaining of these promises we use Async-Await
+        
+app pure application ka instance hota hai and ek application ka ek time pr ek se jaada instance nhi ho skta hai.
+to agr humko app ko export krne ki jrurt dikhai deti hai like routes me app.get || app.post use krte hai to wha hum
+export nhi krenge ,  express me Router naam ka ek function hota hai jo ek mini instance ka kaam krta hai aur hum iske 
+use se get aur post kr skte hai like router.get || router.post.
+
+
+Tasks:
+    0. Set-Up
+        -->npm init -y
+        -->npm i express nodemon ejs mongoose
+        -->package.josn me "start" script add kiya
+    
+    1. Basic Server Created And Checked.
+        -->express require kiya
+        -->port 8080 pr listen kiya
+        -->view engine , views folder and public folder set kiya
+    
+    2. DB Connected And Checked.
+        -->mongoose.connect() ki help se DB connect kiya
+    
+    3. Made Schema in Models Folder.
+        -->mongoose require kiya
+        -->mongoose.Schema me initial/dummy products ka object pass kr ke ek Schema bnaya 
+        -->mongoose.model() ke use se schema ka model bnaya aur usse export kiya.
+    
+    4. Add Initial Data / Dummy Data.( iske liye seed.js file bnate hai ) // seedDB sirf aur sirf ek baar krna hai uske baad comment kr dena hai nhi to jb bhi server refresh hoga data seed hoga.
+        -->mongoose require kiya
+        -->model require kiya
+        -->initial products ka array bnaya
+        -->ek function bnaya jo seed krne ke kaam aayega (seedDB)
+            -->seed krne ke liye insertMany ka use kiya hai, jo promise return krega to uske aage await lga diya.
+            -->to function ko async bnana pda.
+        -->ab is function ko export kr diya
+
+    5. Show Products on page from DB.
+        --> restfull ko follow krte huye products show krne ke liye index.ejs bnaya.
+        --> routes me phle model ko require kiya jisse hum DB se read kr paye.
+        --> products ko find() ki help se read kiya and usse index.js pr render kr diya.
+        --> hum app.get | app.post ka use nhi kr skte to uski jgh humko express.Router ka use krna hai
+        --> is router ko hum mini app ki trh use kr skte hai aur last me isko export kr denge
+        
+    
