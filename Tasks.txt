@@ -91,4 +91,8 @@ Tasks:
     11. Delete functionality
         --> delete ke liye humko Post request ko override krna hoga Delete request me 
         --> post request form ka part hai to hum delete krne ke liye ek form bnayenge index.ejs me.
+        --> form se post ko override kr ke delete request bheja
+        --> route me delete request ke liye route bnaya
+        --> id ki help se find aur delete kiya 
+        --> products page pr redirect kiya
         
