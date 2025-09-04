@@ -12,6 +12,13 @@ to agr humko app ko export krne ki jrurt dikhai deti hai like routes me app.get 
 export nhi krenge ,  express me Router naam ka ek function hota hai jo ek mini instance ka kaam krta hai aur hum iske 
 use se get aur post kr skte hai like router.get || router.post.
 
+ejs is not a view engine but a templating language 
+express have its own view engine by default
+app.set('view engine', 'ejs');  --> this line states that now the view engine will be viewing ejs files.
+we can change this default engine to ejs-mate which is a view engine for layouts.
+
+
+//Day-1
 
 Tasks:
     0. Set-Up
@@ -47,5 +54,41 @@ Tasks:
         --> products ko find() ki help se read kiya and usse index.js pr render kr diya.
         --> hum app.get | app.post ka use nhi kr skte to uski jgh humko express.Router ka use krna hai
         --> is router ko hum mini app ki trh use kr skte hai aur last me isko export kr denge
+
+
+//Day-2
+
+
+    6. Changed default view engine to ejs-mate view engine.
+        -->installed ejs-mate 
+        -->require as ejsMate
+        -->app.engine('ejs', ejsMate);
         
-    
+    7. seperated the boilerplate, partial parts(like navbar)
+        --> views ke andr layouts aur partials ka folder banya hai 
+        --> layout aur partials ko index .ejs me include kiya hai 
+        --> bootstrap ke use se thoda bhut stylling ki hai.
+
+    8.  Adding new product
+        -->express.urlencoded middle ware use kiya incoming request ko parse krne ke liye
+        -->route bnaya new product add krne ke liye(GET)
+        -->new.js me form banaya product ki Details collect krne ke liye
+        -->route ki help se products ke page pr product actually add kiya(POST)
+
+    9.  Adding View functionality
+        -->ek route bnayenge perticular product ko view krne ke liye
+        -->req.params se id nikalenge 
+        -->id use kr ke DB se product find krenge 
+        -->foundProduct ko show.ejs pr show krenge.
+
+    10. Edit functionality 
+        --> ek route bnaya form show krne ke liye( edit.ejs pr )
+        --> method-ovverride install kr ke use kiya so that hum form se put patch delete request bhej ske
+        --> form me method-ovverride krke Patch request bhej diya
+        --> routes me patch request ke liye route bnaya
+        --> id ke help se update krke redirect kr diya
+
+    11. Delete functionality
+        --> delete ke liye humko Post request ko override krna hoga Delete request me 
+        --> post request form ka part hai to hum delete krne ke liye ek form bnayenge index.ejs me.
+        

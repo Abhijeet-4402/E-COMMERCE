@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar.ejs') %>
+<div class="row" >
+    <div class="col-6 mx-auto">
+        <form action="/products" method="POST">
+            <div class="mb-3">
+                <label for="naam">Name: </label>
+                <input type="text" class="form-control", name="name", id="naam", placeholder="Naam Btao Jldi">
+            </div>
+            <div class="mb-3">
+                <label for="fotu">Image: </label>
+                <input type="text" class="form-control", name="img", id="fotu", placeholder="Fotu ka url daal do">
+            </div>
+            <div class="mb-3">
+                <label for="rokda">Price: </label>
+                <input type="text" class="form-control", name="price", id="rokda", placeholder="kitna rokda lega">
+            </div>
+            <div class="mb-3">
+                <label for="likh-lo">Description: </label>
+                <textarea name="desc" id="likh-lo" placeholder="Saman ke baare me kuch to btao be"></textarea>
+            </div>
+            <button class ="btn btn-sm btn-success">Add</button>
+        </form>
+    </div>
+</div>
