@@ -95,4 +95,14 @@ Tasks:
         --> route me delete request ke liye route bnaya
         --> id ki help se find aur delete kiya 
         --> products page pr redirect kiya
+    
+    12. Reviews functionality
+        -->Reviews generally rating aur comments hota hai
+        -->relation 1:many hoga 
+        -->iske liye phle ek schema bnaya
+        -->humko product aur review ko connect krna pdega to uske liye product schema me ek review field bnayi hai
+        -->reviews multiple ho skti hai to wo ek array hogi
+        -->ab ek review ko hum pura nhi store krna chahte hai products me to sirf uski unique id store krenge
+        -->review ka type ObjectId ho (mongoose.Schema.Types.ObjectId ye use kr ke)
+        -->aur humko ye bhi btana pdega ki ye id kha ja kr check krna hai to hum ref me reviews ka model denge.
         
