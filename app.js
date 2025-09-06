@@ -3,9 +3,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const seedDB = require('./seed');
-const productRoutes = require('./routes/product');
 const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override')
+const productRoutes = require('./routes/product');
+const reviewRoutes = require('./routes/review');
 
 
 
@@ -20,7 +21,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopping-sam-app')
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');  // change view engine to ejs
 app.set('views', path.join(__dirname, 'views'));  // connect views folder
-app.set(express.static(path.join(__dirname, 'public')));  // connect public folder
+app.use(express.static(path.join(__dirname, 'public')));// connect public folder
 
 //Seeding DataBase: 
 // seedDB();
@@ -30,7 +31,7 @@ app.use(methodOverride('_method')); // for overriding form method like put patch
 
 //Saare middlewares iske phle use krna hai
 app.use(productRoutes); // So that har incoming request ke liye path check kiya jaye.
-
+app.use(reviewRoutes);  // So that har incoming request ke liye path check kiya jaye.
 
 app.listen(8080, () => {
     console.log("Server Connected at port 8080");

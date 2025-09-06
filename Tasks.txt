@@ -105,4 +105,20 @@ Tasks:
         -->ab ek review ko hum pura nhi store krna chahte hai products me to sirf uski unique id store krenge
         -->review ka type ObjectId ho (mongoose.Schema.Types.ObjectId ye use kr ke)
         -->aur humko ye bhi btana pdega ki ye id kha ja kr check krna hai to hum ref me reviews ka model denge.
-        
+
+//Day-3
+     --Continuing Review functionality
+        -->humko review ke liye input lena pdega jo hum show.ejs pr ek form bna kr le skte hai.
+        -->review routes ko use krne ke liye hum usko app.js me require krenge then middleWare jaise use kr lenge so that ki wo har incoming request pr path check kr paye.
+        -->ab humko review ko apne review wale collection me add krna pdega aur uski id product ke reviews wale array me.
+        -->ab hum product ko id ke use se find krenge and ek new review bnayenge then product ke reviews wale array me usse add kr denge 
+        -->ab humko dono collections me changes krna hoga to hum dono ke save kr denge 
+        -->then hum redirect kr denge
+        -->jo review humne add kiya hai usko show bhi krna pdega.
+        -->review hum whi show krenge jha humko product dikh rha hai(jab ek perticular product ko show krenge tbhi uske saath reviews bhi populate/show kr denge)
+        -->ab populate krne ke baad usko show krne ke liye jgh chahiye to humne ek card liya hai bootstrap se aur usme show kr diya and starablity ke use se rating ko stars me convert kiya hai.
+        -->review ke saath humko uska time bhi dikhna chahiye to hum uske liye schema me ek dusra object pass kr denge jiske andr timestamps: true pass krenge.
+        -->timestamps humko 2 chijo ka access ka deta hai (createdAt, updatedAt) jo hmare review ke saath collection me save ho jayega.
+        -->but timestamps date formate me nhi hota hai to usko show krne ke liye humko usse phle date formate me convert krna pdega.
+        --> ES5 me is conversion ke liye built-in function hai toDateString(), toTimeString(),   isko use krne ke liye review.createdAt.toDateString() ye kr skte hai
+
