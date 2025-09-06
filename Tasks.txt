@@ -120,5 +120,18 @@ Tasks:
         -->review ke saath humko uska time bhi dikhna chahiye to hum uske liye schema me ek dusra object pass kr denge jiske andr timestamps: true pass krenge.
         -->timestamps humko 2 chijo ka access ka deta hai (createdAt, updatedAt) jo hmare review ke saath collection me save ho jayega.
         -->but timestamps date formate me nhi hota hai to usko show krne ke liye humko usse phle date formate me convert krna pdega.
-        --> ES5 me is conversion ke liye built-in function hai toDateString(), toTimeString(),   isko use krne ke liye review.createdAt.toDateString() ye kr skte hai
-
+        -->ES5 me is conversion ke liye built-in function hai toDateString(), toTimeString(),   isko use krne ke liye review.createdAt.toDateString() ye kr skte hai
+        -->agr hum koi ek product delete krte hai to humko usse related saare reviews bhi delete krna pdega.
+            -iske 2 tarike hai 
+                -product ke reviews wale array pr loop lagao aur findByIdAndDelete kr do but ye efficient way nhi hai
+                -findByIdAndDelete/findByIdAndUpdate jaise functions behind the scene ek middleWare hi use krte hai like findOneAndDelete/findOneAndUpdate
+                -findByIdAndDelete(id) is equivalent to findOneAndDelete({_id:id})
+                -aur hmare paas kuch Schema ke middleWare hote hai like pre, post. Jinka use kr ke hum ye bta skte hai ki us schema se bne huye model pr koi middleware use kr rhe to uske saath aur kya kya krna hai 
+                - like : 
+                                productSchema.post('findOneAndDelete', async function(){
+                                    if(product.reviews.length>0){
+                                        await Review.deleteMany({_id:{$in:product.reviews}})
+                                    }
+                                })
+                    this is a reference used in my Product Model.
+        
