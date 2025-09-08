@@ -1,25 +1,68 @@
 <% layout('layouts/boilerplate') %>
 <%- include('../partials/navbar.ejs') %>
-<div class="row" >
-    <div class="col-6 mx-auto">
-        <form action="/products/<%= foundProduct._id %>?_method=PATCH" method="POST">
-            <div class="mb-3">
-                <label for="naam">Name: </label>
-                <input type="text" class="form-control", name="name", id="naam", placeholder="Naam Btao Jldi", value = "<%= foundProduct.name %>">
-            </div>
-            <div class="mb-3">
-                <label for="fotu">Image: </label>
-                <input type="text" class="form-control", name="img", id="fotu", placeholder="Fotu ka url daal do", value = "<%= foundProduct.img %>">
-            </div>
-            <div class="mb-3">
-                <label for="rokda">Price: </label>
-                <input type="text" class="form-control", name="price", id="rokda", placeholder="kitna rokda lega", value = "<%= foundProduct.price %>">
-            </div>
-            <div class="mb-3">
-                <label for="likh-lo">Description: </label>
-                <textarea name="desc" id="likh-lo" placeholder="Saman ke baare me kuch to btao be">"<%= foundProduct.desc %>"</textarea>
-            </div>
-            <button class ="btn btn-sm btn-success">Edit</button>
-        </form>
-    </div>
+<div class="row">
+  <div class="col-6 mx-auto">
+    <form action="/products/<%= foundProduct._id %>?_method=PATCH" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="naam">Name: </label>
+        <input type="text" class="form-control" , name="name" , id="naam" , placeholder="Naam Btao Jldi" , value="<%= foundProduct.name %>" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please Fill the Name Field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="fotu">Image: </label>
+        <input type="text" class="form-control" , name="img" , id="fotu" , placeholder="Fotu ka url daal do" , value="<%= foundProduct.img %>" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please Provide the Image URL.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="rokda">Price: </label>
+        <input type="text" class="form-control" , name="price" , id="rokda" , placeholder="kitna rokda lega" , value="<%= foundProduct.price %>" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please Fill the Price Field.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="likh-lo">Description: </label>
+        <textarea name="desc" id="likh-lo" placeholder="Saman ke baare me kuch to btao be"><%= foundProduct.desc %></textarea>
+      </div>
+      <button class="btn btn-sm btn-success">Edit</button>
+    </form>
+  </div>
 </div>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+
+  //this is the code we copied from bootstrap
+  //iife  immidiately invoked functional expression.
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>

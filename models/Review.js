@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const { validateReview } = require('../middleware');
 const reviewSchema = new mongoose.Schema({
     rating: {
         type: Number,

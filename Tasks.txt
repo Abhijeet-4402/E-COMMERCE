@@ -128,10 +128,138 @@ Tasks:
                 -findByIdAndDelete(id) is equivalent to findOneAndDelete({_id:id})
                 -aur hmare paas kuch Schema ke middleWare hote hai like pre, post. Jinka use kr ke hum ye bta skte hai ki us schema se bne huye model pr koi middleware use kr rhe to uske saath aur kya kya krna hai 
                 - like : 
-                                productSchema.post('findOneAndDelete', async function(){
+                                productSchema.post('findOneAndDelete', async function(product){
                                     if(product.reviews.length>0){
                                         await Review.deleteMany({_id:{$in:product.reviews}})
                                     }
                                 })
                     this is a reference used in my Product Model.
+
+//Day-4
+    13. Validations
+        -->2 types: Client Side Validations, Server Side Validations
+        -->Client Side Validations
+            -->Client Side Validations form ke use se hoti hai.
+            -->ab form ke jis bhi input ko required krna hai uske andr required keyword pass kr do.
+            -->agr kissi form ki default validation rokni hai (jo required keyword se kr rhe the) to novalidate keyword form tag me pass kr do.
+            -->novalidate kyu use krna hai?
+            -->default validation me humko jo fill out this field show hota hai wo visually utna appealing nhi lgta and hum usne custom messages nhi daal skte like (please choose your state and kinda stuff)
+            -->ab hum bootstrap se cumstom Validations ke liye JS code use kr skte hai.
+            -->jo code humne new.ejs me copy kiya hai usme agr dhyan do to us function ka koi naam nhi hai and defination ke saath me hi usse call bhi kr diya gya hai
+            -->aise functions ko hum immidiatly invoked functional expression bolte hai. ab jaise hi browser is function ko read krega ussi time isko run bhi kr dega.
+            -->jo code humne bootstrap se laya hai usse properly use krne ke liye hum form and uske fields me kuch classes add krni pdegi
+            -->ab humne same chij edit.ejs me bhi kr diya so that edit krte time bhi hum same type ki validation pa ske.
+        
+        ----Using Some try-catch in routes---- agr koi error aayega to hum ek error wale page pr redirect kr denge.
+            
+        -->Server Side Validations
+            -->SSV works in the backend and we cant go to the backend
+            -->So we will use JOI package to do our SSV
+            -->this is the most powerfull packages for this purpose.
+            -->this is a Schema Descriptive language.
+            -->works as a Data Validator
+            -->to work with this    
+                -->1. iske liye phle ek Schema bnana pdega
+                -->2. validate()
+            -->1. Schema   
+            -->humko 2 models me validation krna pdega to uske liye joi ke use se dono ke liye SSV schema bna diya. 
+            -->then dono schema ko export kr diya.
+            
+            -->2. Validate()
+            -->validate works in a middleware.
+            -->returns 2 things error, value.
+            -->in our case we dont need any value we just need to handle the error.
+            -->agr error nhi aayega to next call kr denge 
+            -->at last hum dono ko export kr denge.
+            -->ab routes me inko require kr ke add/edit me as a middleware bhej denge.
+
+    14. Cookies & Session
+            -->Cookies
+                -->client side storage
+                -->key:value pair 
+                -->Server sends to Client
+                -->uses -Personalization
+                        -Session-Management
+                        -Tracking
+                -->it is Statefull(depends on previous state)    //stateless(do not depends on previous state)
+                -->middleware -- cookie-parser
+                -->why not use Cookies
+                    ->not secure      (instead use signed cookies if you want to use cookie.) 
+
+                -->signed-cookies: it cannot be accessed directly we need to use cookie-parser to access it
+                -->it parses a cookie value as a signed-cookie accepts a string and a secret as parameters and returns either the unsigned value or false.            
+                -->send krne ke liye req.signedCookies ko send krenge.
+
+
+            -->Session
+                -->server side storage.
+                -->its id is stored in cookie.
+                -->package - express-session.
+                -->middleware    
+                    --> app.use(session({
+                            secret: 'keyboard cat',            --> this can be anything.
+                            resave: false,
+                            saveUninitialized: true,
+                            // cookie: { secure: true }        -->  this is for security purpose for https.
+                        }))
+
+                -->session id is stored on behalf of the secret
+
+    15. Flash messages
+            --> pop-up like image uploaded successfully, added to cart, etc.
+            --> package -- connect-flash
+            --> express-session and connect-flash install kiya 
+            --> dono ko require kiya then dono ka middleware use kiya.
+
+            --> ab review.js me hum flash use krenge
+            --> but jb tk flash humko dikhega usse phle hum redirect ho jayenge to humko flash ko product ke show route ke help se show wale page pr bhejna pdega
+            --> humne product ko reviews ke saath populate kr rkha hai to humko koi dikkt nhi aayegi flash access krne me nhi to humko phle populate krna pdta then flash krna pdega.
+            --> ab flash msg ko show krne ke liye hum usse show.ejs pr dikha skte hai jiske liye humne bootstrap use kiya hai. so wo toda theek theek sa lge.
+            --> ab aise to humko saare template ke liye bnana pdega, ab huko ye chij baar baar repeat na krna pde to hum isko locals me store kr skte hai
+            --> locals is an object avialable in response.
+            --> ye wala part saari incoming request pr kaam kre to use liye ek middleware bna lenge khud ka.
+                        app.use((req, res, next) => {
+                            res.locals.success = req.flash('success');
+                            res.locals.error = req.flash('error');
+                            next();
+                        })
+                like this.
+
+            --> ab flash alerts ke liye partials ke andr ek flash.ejs naam ki file bna li hai jisme hum saare flash alerts likhenge fir jha use krne hoga wha include kr lenge.
+            --> humne use kiya hai like product.js me edit delete add ke liye aur review.js me for adding reviews.
+    16. Authentication and Authorisation
+            -->we will do the Authentication using passport.js
+            -->what is passport.js?
+            -->it is just a technique.
+            -->limitation -> only for node.js
+            -->what are strategies  -> possible ways to do Authentication
+            -->login using gmail, login using facebook, login using microsoft, etc.   ->  these are all called o-Auths.
+            -->we will use passport-local.
+            -->to use this first install passport-local.
+            -->how this local strategy works?
+            -->for Authentication we need user
+            -->for user we need to make a schema with name, email, username, password, etc.
+            -->ab ye jo password jaisi chij hoti hai ye directly DB me store nhi hoti hai.
+            -->DB me store krne ke phle hum password ko hash(encrypt) krte hai uske baad store krenge aur ye hashing ke different different techniques hoti hai.
+            -->like -> SHA-256
+            -->what is a hashing function?
+            -->function which takes an input and generates an output and the input will never be retrieved from the output.
+            -->so ab hmara jo password hai wo hash ho kr DB me to store kr lenge but fir jb user login krne aayega to jo DB me password hai usko original password me kaise layege kyuki password match bhi to krna hai n.
+            -->ab hum hashed pass ko original me to nhi badal skte.
+            -->so what we can do is phle username/email match krenge jo ki unique honi chahiye.
+            -->ab jo password login ke time enter kiya hai hum usko hash kr lenge and jo email ke use se DB se hashed password aaya hai usse match kr lenge.
+            -->aur agr password match nhi krta to hum ye nhi btate hai ki password glt hai ya username. we just say like login failed, you are unauthenticated, etc.
+            -->we will use passport-local-mongoose (plm) for hashing.
+            -->this will add two extra fields to the DB that is unique id(anything like email/username) and a password.
+            -->so hum ye 2 field khud schema me nhi dalenge.
+            -->salt: maan lo 2 logo ne same password rkha hai to agr ek ka password pta chla to DB dekh kr ye pta chl jayega ki uska same password kiska kiska hai.
+            -->kyuki hash ho kr to same hi hash bnega n ek value ka to hum hashing ke phle password ke saath ek random value(salt) add krte hai aur ab hashed password ke saath hum salt bhi add kr lenge.
+            
+
+
+
+
+
+
+            
         
