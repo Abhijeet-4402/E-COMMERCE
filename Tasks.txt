@@ -190,7 +190,7 @@ Tasks:
                 -->it parses a cookie value as a signed-cookie accepts a string and a secret as parameters and returns either the unsigned value or false.            
                 -->send krne ke liye req.signedCookies ko send krenge.
 
-
+//Day-5   ------------------------------------
             -->Session
                 -->server side storage.
                 -->its id is stored in cookie.
@@ -254,7 +254,7 @@ Tasks:
             -->so hum ye 2 field khud schema me nhi dalenge.
             -->salt: maan lo 2 logo ne same password rkha hai to agr ek ka password pta chla to DB dekh kr ye pta chl jayega ki uska same password kiska kiska hai.
             -->kyuki hash ho kr to same hi hash bnega n ek value ka to hum hashing ke phle password ke saath ek random value(salt) add krte hai aur ab hashed password ke saath hum salt bhi add kr lenge.
-            
+
 
 
 
