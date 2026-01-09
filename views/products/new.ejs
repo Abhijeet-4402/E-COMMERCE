@@ -1,0 +1,92 @@
+<% layout('layouts/boilerplate') %>
+    <%- include('../partials/navbar') %>
+        <div class="row">
+            <div class="col-6 mx-auto">
+                <!-- //col-6 means 12/6=2 cards in a row and mx-auto means margin left and right auto and mt-5 means margin top 5 -->
+                <form action="/products" method="POST" class=" needs-validation" novalidate>
+                    <!-- name -->
+                    <div class="mb-3">
+                        <label for="Naam">Name:</label>
+                        <input type="text" class="form-control" name="name" id="naam" placeholder="Name of the product" required /> <!--//note-> name in the input tag has to same as we have wriiten in schema -->
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please select a name feild.
+                        </div>
+                    </div>
+
+                    <!-- image -->
+                    <div class="mb-3">
+                        <label for="img">Image:</label>
+                        <input type="text" class="form-control" name="img" id="img"
+                            placeholder="Image URL of the product" required />
+                 
+                    <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter the url of Image.
+                        </div>
+                    <div>
+                        
+                        <!-- price -->
+                        <div class="mb-3">
+                            <label for="paisa">Price:</label>
+                            <input type="number" class="form-control" name="price" id="paisa"
+                            placeholder="Price of the product" required />
+                        
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                                please enter the price of product.
+                            </div>
+                        </div>
+                        
+                    <!-- description -->
+                    <div class="mb-3">
+                        <label for="desc">Description:</label>
+                        <textarea class="form-control" name="desc" id="desc" rows="3"
+                            placeholder="Description of the product" required></textarea>
+                    
+                    <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            Please enter the description of product.
+                        </div>
+                    </div>
+
+                    <!-- button to add -->
+                    <button type="submit" class="btn btn-sm btn-success">Add Product</button>
+
+
+
+                </form>
+            </div>
+        </div>
+
+
+
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()                //it is a function n it is called by itself it has no name.these functions are called IIFE(Immediately Invoked Function Expression).yeh jese hi script line pr hit krega ussi time chl pdega.
+        </script>

@@ -1,0 +1,104 @@
+<% layout('layouts/boilerplate') %>
+    <%- include('../partials/navbar') %>
+    <%- include('../partials/flash') %>
+    <div class="row">
+            <!-- displaying flash -->
+            <!-- <%if(msg && msg.length){%>
+            <div class="alert alert-success" role="alert">
+                <Strong><%=msg%></Strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <%}%> -->
+
+            <!-- yha se loop hta denge kyuki particular product ki detail dekhni h -->
+            <!-- aur item ki jgh foundproduct aa jayega -->
+            <div class="col-lg-6 mt-3"> <!-- yeh 6 hisso m krenge kyuki bache huye m reviews bhi dikhane h-->
+            
+
+
+
+            <div class="card shadow mx-auto" style="width: 18rem;">
+                <!-- //mx-auto means margin left and right auto -->
+                <img src="<%= foundproduct.img %>" class="card-img-top" alt="...">
+                <!-- //card-img-top means image at the top of the card."Top of the card" means the image appears at the uppermost part of the card component, above the product name, price, description, and button.In Bootstrap, card-img-top is a class that places the image at the top inside the card layout. -->
+                <div class="card-body">
+                    <!--card-body means body of the card where all the content like title, text, button will be placed -->
+                    <h2 class="card-title">
+                        <%= foundproduct.name %>
+                    </h2> <!-- name of the product -->
+                    <h5 class="card-title">
+                        <%= foundproduct.price %>
+                    </h5> <!-- price of the product -->
+                    <p class="card-text">
+                        <%= foundproduct.desc %>
+                    </p> <!-- description of the product -->
+                    <%if(currentUser && currentUser.role==='seller'){ %>   <!--paste condition from navbar.ejs-->
+                        <a href="/products/<%= foundproduct._id%>/edit" class="btn btn-sm btn-light">Edit</a>
+                    <%}%>
+                    <!-- edit krne k liye -->
+                    <a href="#" class="btn btn-sm btn-warning">Buy product</a>
+                    
+                    <!-- //btn btn-info means button with info color -->
+                     <form method="POST" action="/user/<%= foundproduct._id%>/add" class="d-inline-block">
+                        <button class="btn btn-sm btn-secondary">Add to Cart</button>
+                     </form>
+                     
+                     <!-- <a href="#" class="btn btn-sm btn-secondary">Add to Cart</a>  --><!--isko form k andr le jayenge-->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <h1 class="display-5">Leave a Reviews</h1>
+            <form action="/products/<%= foundproduct._id%>/review" method="POST">
+                <div>
+                    <fieldset class="starability-basic">
+
+                        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0"
+                            checkedaria-label="No rating." />
+                        <input type="radio" id="first-rate1" name="rating" value="1" />
+                        <label for="first-rate1" title="Terrible">1 star</label>
+                        <input type="radio" id="first-rate2" name="rating" value="2" />
+                        <label for="first-rate2" title="Not good">2 stars</label>
+                        <input type="radio" id="first-rate3" name="rating" value="3" />
+                        <label for="first-rate3" title="Average">3 stars</label>
+                        <input type="radio" id="first-rate4" name="rating" value="4" />
+                        <label for="first-rate4" title="Very good">4 stars</label>
+                        <input type="radio" id="first-rate5" name="rating" value="5" />
+                        <label for="first-rate5" title="Amazing">5 stars</label>
+                    </fieldset>
+
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="comment">Comment</label>
+                    <textarea class="form-control" rows="3" name="comment"
+                        id="comment"></textarea><!-- //range input type se slider aata h -->
+                </div>
+                <button class="btn btn-sm btn-success">Add Review</button>
+            </form>
+            <div class="my-3">
+
+                <%for(let review of foundproduct.reviews){ %>
+                    <!-- //foundproduct.reviews m saare reviews aa jayenge kyuki humne populate kr rakha h -->
+                    <div class="card mt-3">
+                        <p class="card-title mx-3">
+                            <!-- agr review.createdAt present hai toh show krna otherwise nhi krna -->
+                            <%if(review.createdAt){ %>
+                                <%=review.createdAt.toDateString()%>
+                                    <%} %>
+                        </p>
+                        <p class="starability-result" data-rating="<%=review.rating%>">
+                            Rated: <%=review.rating%> stars
+                        </p>
+                        <div class="card-body">
+                            <p class="card-text">Comment:<%=review.comment%>
+                            </p>
+                            <!-- <a href="#" class="btn btn-primary">Delete</a> -->
+                        </div>
+
+                    </div>
+                    <%}%>
+            </div>
+        </div>
+
+
+        </div>

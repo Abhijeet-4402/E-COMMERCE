@@ -1,0 +1,49 @@
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar') %>
+
+<div class="row">
+    
+    <div class="col-md-6 mx-auto"> <!--centerlly aligned k liye mx-auto-->
+            <%- include('../partials/flash') %>
+            <h1 class="display-6">Sign up</h1>
+            <form action="/register" method="POST">
+                <!--for user-->
+                <div class="mb-3"> <!--class-margin bottom 3-->
+                    <label class="form-label" for="username">Username:</label> <!--for vali cheez same hoti jo hum id m dete h-->
+                    <input class="form-control" type="text" name="username" id="username" placeholder="Username"> <!--keep the name username as passport is attched to mongoose db-->
+                </div>
+                <!--for email-->
+                <div class="mb-3"> <!--class-margin bottom 3-->
+                    <label class="form-label" for="email">Email:</label> <!--for vali cheez same hoti jo hum id m dete h-->
+                    <input class="form-control" type="email" name="email" id="email" placeholder="Email"> <!--keep the name username as passport is attched to mongoose db-->
+                </div>
+
+                <!--for aap kese login krna chahte ho as a user/buyer or as a seller-->
+                <div class="mb-3">
+                    <p class="mb-2">Want to register as ?</p>
+                    <!--as a buyer?-->
+                    <div class="mx-2">
+                        <label class="form-label" for="buyer">Buyer:</label>
+                        <input class="form-check-input" type="radio" name="role" value="buyer" id="buyer"> <!--name need to be same taki tabhi aap ek select kr paoge-->
+                    </div>
+                    <!--as a seller?-->
+                    <div class="mx-2">
+                        <label class="form-label" for="seller">Seller:</label>
+                        <input class="form-check-input" type="radio" name="role" value="seller" id="seller"> <!--name needs to be same taki tabi aap ek select kr paoge-->
+                    </div>
+                </div>
+
+                <!--for Password-->
+                <div class="mb-3"> <!--class-margin bottom 3-->
+                    <label class="form-label" for="username">Password:</label> <!--for vali cheez same hoti jo hum id m dete h-->
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Password"> <!--keep the name username as passport is attched to mongoose db-->
+                </div>
+                <button type="submit" class="btn btn-sm btn-success">Sign Up</button>
+                <p class="fw-light mt-2">Already have an Account<a href="/login">Login</a></p>
+
+            </form>
+
+        </div>
+
+
+    </div>

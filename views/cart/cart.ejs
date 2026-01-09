@@ -1,0 +1,8 @@
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar') %>
+    <ul>
+        <!--user k cart k upr loop lgao taki sare items dikhe-->
+        <%for(let item of user.cart){%>
+            <li><%= item.name %> -> <%= item.price %></li>
+        <%}%>
+    </ul>

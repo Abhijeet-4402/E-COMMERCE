@@ -1,0 +1,26 @@
+<!--for sucess-->
+
+<%if(success && success.length) { %>
+    
+                    <!-- displaying flash -->
+          
+            <div class="alert alert-success" role="alert">
+                <%=success%>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    
+
+<%}%>
+
+<!--for error-->
+
+<%if(error && error.length) { %>
+    
+                    <!-- displaying flash -->
+          
+            <div class="alert alert-warning" role="alert">
+                <%=error%>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    
+<%}%>

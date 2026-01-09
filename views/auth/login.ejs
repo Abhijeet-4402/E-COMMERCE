@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar') %>
+
+<div class="row">
+    
+    <div class="col-md-6 mx-auto"> <!--centerlly aligned k liye mx-auto-->
+            <%- include('../partials/flash') %>
+            <h1 class="display-6">Login</h1>
+            <form action="/login" method="POST">
+                <!--for User-->
+                <div class="mb-3"> <!--class-margin bottom 3-->
+                    <label class="form-label" for="username">Username:</label> <!--for vali cheez same hoti jo hum id m dete h-->
+                    <input class="form-control" type="text" name="username" id="username" placeholder="Username"> <!--keep the name username as passport is attched to mongoose db-->
+                </div>
+                
+                <!--for Password-->
+                <div class="mb-3"> <!--class-margin bottom 3-->
+                    <label class="form-label" for="username">Password:</label> <!--for vali cheez same hoti jo hum id m dete h-->
+                    <input class="form-control" type="password" name="password" id="password" placeholder="Password"> <!--keep the name username as passport is attched to mongoose db-->
+                </div>
+                <button type="submit" class="btn btn-sm btn-success">Login</button>
+                <!--people dont have account and comes to login page-->
+                <p class="fw-light mt-2">Don't have an Account,<a href="/register">Signup</a></p>
+
+            </form>
+ 
+        </div>
+
+
+    </div>

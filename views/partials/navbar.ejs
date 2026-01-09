@@ -1,0 +1,55 @@
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" href="#">Shopping</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/products">Home</a>
+        </li>
+        <%if(currentUser && currentUser.role==='seller'){ %>   <!--if currentUser hai koi na koi bnda logged in hai and uska role seller hai-->
+          <li class="nav-item">
+          <a class="nav-link" href="/product/new">New</a>
+        </li>
+        <%}%>  
+        
+        <!-- <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li> -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Electronics</a></li>
+            <li><a class="dropdown-item" href="#">Clothes</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Accessories</a></li>
+          </ul>
+      </ul>
+      <!--Search-->
+      <!-- <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-outline-success" type="submit">Search</button> -->
+        
+        <div class="d-flex align-items-center" role="search">
+          <!-- //yha hum conditional rendering krenge -->
+            <% if(!currentUser){%><!--agr currentUser nhi h toh sirf login dikhao-->
+             <a href="/login" class="nav-link mx-2">Login</a>
+           <%} else{%>
+            <!--login kon kr rha h uske k liye ek anchor tag-->
+            <a href="#" class="nav-link mx-2">Hello,<%=currentUser.username%></a>
+          <!-- This is the new, correct icon code -->
+            <a href="/user/cart" class="nav-link mx-2">
+              <i class="bi bi-cart fs-5"></i>
+              <sup><span class="badge bg-danger"><%= currentUser.cart.length %></span></sup>  <!--for cart m kitne item hai-->
+            </a>
+            <a href="/logout" class="nav-link mx-2">Logout</a>
+        <%}%>
+      </div>
+    </div>
+  </div>
+</nav>

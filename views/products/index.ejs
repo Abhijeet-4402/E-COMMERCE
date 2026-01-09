@@ -1,0 +1,25 @@
+<% layout('layouts/boilerplate') %>
+<%- include('../partials/navbar') %>
+<%- include('../partials/flash') %>
+
+    <div class="row">
+
+        <% for(let item of products) { %>
+            <div class="col-lg-4 mt-3">   <!-- //col-lg-4 means large 4 means 12/4=3 cards in a row and mt-3 means margin top 3 -->
+                <div class="card shadow-sm  mx-auto position-relative" style="width: 20rem;">  <!-- //mx-auto means margin left and right auto -->
+                    <img src="<%= item.img %>" class="card-img-top" alt="item image"> <!-- //card-img-top means image at the top of the card."Top of the card" means the image appears at the uppermost part of the card component, above the product name, price, description, and button.In Bootstrap, card-img-top is a class that places the image at the top inside the card layout. -->
+                    <div class="card-body"> <!--card-body means body of the card where all the content like title, text, button will be placed -->
+                         <h2 class="card-title">  <%= item.name %></h2> <!-- name of the product -->
+                        <h5 class="card-title"> <%= item.price %></h5> <!-- price of the product -->
+                        <p class="card-text"><%= item.desc %></p> <!-- description of the product -->
+                        <a href="/products/<%= item._id%>" class="btn btn-info">View Product</a> <!-- //btn btn-info means button with info color -->
+                        <%if(currentUser && currentUser.role==='seller'){ %>
+                            <form class="d-inline-block" action="/products/<%= item._id%>?_method=DELETE" method="POST">
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+    </div>

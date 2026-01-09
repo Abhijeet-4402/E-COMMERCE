@@ -1,0 +1,37 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Framework artifacts
+dist/
+build/
+.next/
+
+# Misc
+.DS_Store
+.vscode/
+coverage/
+
+# Local scripts and debug logs
+*.bat
+debug_log.txt
+.placeholder
+
+# Client
+client/dist/
+client/.eslintcache
+
+package-lock.json
