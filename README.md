@@ -73,7 +73,6 @@ root/
 ## 🛡️ Security Highlights
 -   **Input Validation**: ALL inputs validated server-side using Joi.
 -   **Error Handling**: Centralized error management prevents info leakage.
--   **Auth**: HttpOnly cookies prevent XSS attacks on session tokens.
 
 ---
 *Built as a demonstration of robust full-stack engineering.*
