@@ -22,13 +22,29 @@ const createProduct = catchAsync(async (req, res) => {
 
 const getProduct = catchAsync(async (req, res, next) => {
     const { id } = req.params;
-    const product = await Product.findById(id).populate('reviews');
+    const product = await Product.findById(id)
+        .populate({
+            path: 'reviews',
+            populate: {
+                path: 'author',
+                select: 'username'
+            }
+        });
     if (!product) {
         throw new AppError('Product not found', 404);
     }
     res.status(200).json({
         success: true,
         data: product
+    });
+});
+
+const getSellerProducts = catchAsync(async (req, res) => {
+    const sellerId = req.user._id;
+    const products = await Product.find({ author: sellerId });
+    res.status(200).json({
+        success: true,
+        data: products
     });
 });
 
@@ -62,6 +78,7 @@ module.exports = {
     getAllProducts,
     createProduct,
     getProduct,
+    getSellerProducts,
     updateProduct,
     deleteProduct
 };

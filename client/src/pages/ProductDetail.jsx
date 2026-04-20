@@ -37,7 +37,7 @@ const ProductDetail = () => {
     const handleAddToCart = async () => {
         if (!user) return navigate('/login');
         try {
-            await api.post(`/user/${id}/add`); // Backend route: router.post('/user/:productId/add', ...);
+            await api.post(`/user/${id}/add`, { quantity: 1 });
             setMsg({ type: 'success', text: 'Added to cart!' });
         } catch (e) {
             setMsg({ type: 'error', text: 'Failed to add to cart' });
@@ -59,7 +59,7 @@ const ProductDetail = () => {
     const handleBuyNow = async () => {
         if (!user) return navigate('/login');
         try {
-            await api.post(`/user/${id}/add`);
+            await api.post(`/user/${id}/add`, { quantity: 1 });
             navigate('/cart');
         } catch (e) {
             setMsg({ type: 'error', text: 'Failed to process request' });
@@ -103,9 +103,12 @@ const ProductDetail = () => {
                                 <div className="flex items-center justify-between mb-2">
                                     <div className="flex items-center">
                                         <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center mr-2">
-                                            <span className="text-sm font-bold text-gray-600">U</span>
+                                            <span className="text-sm font-bold text-gray-600">{review.author?.username?.charAt(0).toUpperCase() || 'U'}</span>
                                         </div>
-                                        <span className="font-semibold text-yellow-500">{'★'.repeat(review.rating)}<span className="text-gray-300">{'★'.repeat(5 - review.rating)}</span></span>
+                                        <div className="ml-2">
+                                            <p className="font-semibold text-gray-700">{review.author?.username || 'Anonymous'}</p>
+                                            <span className="font-semibold text-yellow-500">{'★'.repeat(review.rating)}<span className="text-gray-300">{'★'.repeat(5 - review.rating)}</span></span>
+                                        </div>
                                     </div>
                                     <span className="text-gray-400 text-sm">Verified Buyer</span>
                                 </div>

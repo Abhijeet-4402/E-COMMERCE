@@ -43,7 +43,13 @@ const Navbar = () => {
                     {user ? (
                         <div className="flex items-center space-x-4">
                             {user.role === 'seller' && (
-                                <Link to="/seller/dashboard" className="text-gray-600 hover:text-primary transition font-medium">Dashboard</Link>
+                                <>
+                                    <Link to="/seller/dashboard" className="text-gray-600 hover:text-primary transition font-medium">Dashboard</Link>
+                                    <Link to="/seller/orders" className="text-gray-600 hover:text-primary transition font-medium">Orders</Link>
+                                </>
+                            )}
+                            {user.role === 'buyer' && (
+                                <Link to="/order-history" className="text-gray-600 hover:text-primary transition font-medium">My Orders</Link>
                             )}
                             <span className="font-semibold text-gray-700">{user.username}</span>
                             <button onClick={handleLogout} className="text-red-500 hover:text-red-700 font-medium text-sm border border-red-500 px-3 py-1 rounded hover:bg-red-50 transition">Logout</button>
@@ -69,7 +75,13 @@ const Navbar = () => {
                     {user ? (
                         <>
                             {user.role === 'seller' && (
-                                <Link to="/seller/dashboard" className="block text-gray-600 hover:text-primary py-2" onClick={() => setIsOpen(false)}>Dashboard</Link>
+                                <>
+                                    <Link to="/seller/dashboard" className="block text-gray-600 hover:text-primary py-2" onClick={() => setIsOpen(false)}>Dashboard</Link>
+                                    <Link to="/seller/orders" className="block text-gray-600 hover:text-primary py-2" onClick={() => setIsOpen(false)}>Orders</Link>
+                                </>
+                            )}
+                            {user.role === 'buyer' && (
+                                <Link to="/order-history" className="block text-gray-600 hover:text-primary py-2" onClick={() => setIsOpen(false)}>My Orders</Link>
                             )}
                             <div className="py-2 text-gray-700 font-medium">Hi, {user.username}</div>
                             <button onClick={() => { handleLogout(); setIsOpen(false); }} className="block w-full text-left text-red-500 py-2">Logout</button>

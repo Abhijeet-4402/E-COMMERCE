@@ -2,7 +2,7 @@
 
 
 const Product = require('./models/Product');
-const { productSchema, reviewSchema } = require('./schema.js');
+const { productSchema, reviewSchema, orderSchema } = require('./schema.js');
 
 
 // Middleware for validating product
@@ -19,6 +19,16 @@ const validateProduct = (req, res, next) => {
 const validateReview = (req, res, next) => {
     const { rating, comment } = req.body;
     const { error } = reviewSchema.validate({ rating, comment });
+    if (error) {
+        return res.status(400).json({ success: false, message: error.details[0].message });
+    }
+    next();
+};
+
+// Middleware for validating order
+const validateOrder = (req, res, next) => {
+    const { shippingAddress, paymentMethod } = req.body;
+    const { error } = orderSchema.validate({ shippingAddress, paymentMethod });
     if (error) {
         return res.status(400).json({ success: false, message: error.details[0].message });
     }
@@ -58,6 +68,6 @@ const isProductAuthor = async (req, res, next) => {
     }
 };
 
-module.exports = { isProductAuthor, isSeller, isLoggedIn, validateReview, validateProduct };
+module.exports = { isProductAuthor, isSeller, isLoggedIn, validateReview, validateProduct, validateOrder };
 
 

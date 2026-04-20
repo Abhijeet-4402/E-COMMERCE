@@ -68,20 +68,18 @@ const currentUser = catchAsync(async (req, res) => {
 
         // Fetch all products that are currently in the cart to check if they still exist
         const Product = require('../models/Product');
-        const validProducts = await Product.find({ _id: { $in: user.cart } });
+        const cartProductIds = user.cart.map(item => item.product);
+        const validProducts = await Product.find({ _id: { $in: cartProductIds } });
+        const validProductIds = validProducts.map(p => p._id.toString());
 
-        // If the number of valid products found is different from cart length, update cart
+        // If any products were deleted, remove them from cart
         if (validProducts.length !== user.cart.length) {
-            user.cart = validProducts.map(p => p._id);
+            user.cart = user.cart.filter(item => validProductIds.includes(item.product.toString()));
             await user.save();
         }
 
-        // We return the user with populated cart for consistency
-        // But since we just fetched validProducts, we can just attach them.
-        // However, user.cart is still just IDs in the document.
-        // The frontend expects user.cart to be populated objects usually? 
-        // Let's populate it properly before sending.
-        await user.populate('cart');
+        // Populate cart products before sending response
+        await user.populate('cart.product');
 
         res.status(200).json({
             success: true,

@@ -20,6 +20,16 @@ const createReview = catchAsync(async (req, res) => {
     product.reviews.push(review);
     await review.save();
     await product.save();
+
+    // Calculate avgRating from all reviews
+    const allReviews = await Review.find({ _id: { $in: product.reviews } });
+    const avgRating = allReviews.length > 0 
+        ? allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length 
+        : 0;
+    
+    product.avgRating = avgRating;
+    await product.save();
+
     res.status(201).json({
         success: true,
         message: 'Review added successfully',

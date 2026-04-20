@@ -10,6 +10,9 @@ router.get('/products', productController.getAllProducts);
 // Create a new product
 router.post('/products', isLoggedIn, isSeller, validateProduct, productController.createProduct);
 
+// Get seller's products (all products authored by current seller)
+router.get('/seller/products', isLoggedIn, isSeller, productController.getSellerProducts);
+
 // Get a single product
 router.get('/products/:id', productController.getProduct);
 

@@ -1,4 +1,5 @@
 {
-  "watch": ["app.js", "routes", "models", "views", "public", "client", "src", "config"],
+  "watch": ["server"],
+  "exec": "node server/app.js",
   "ext": "js,jsx,ts,tsx,json,ejs,html,css,scss,env"
 }

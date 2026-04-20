@@ -16,9 +16,11 @@ const productSchema = Joi.object({
 const reviewSchema = Joi.object({
     rating: Joi.number().min(0).max(5).required(), //yeh model k schema k keys ko server sidepr validate krta h
     comment: Joi.string().required()
-
-
-
 })
 
-module.exports = { productSchema, reviewSchema };
+const orderSchema = Joi.object({
+    shippingAddress: Joi.string().required(),
+    paymentMethod: Joi.string().valid('stripe', 'cash-on-delivery').default('stripe')
+})
+
+module.exports = { productSchema, reviewSchema, orderSchema };

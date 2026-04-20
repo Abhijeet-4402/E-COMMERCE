@@ -15,6 +15,7 @@ const authRoutes = require('./routes/auth');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const cartRoutes = require('./routes/cart');
+const orderRoutes = require('./routes/order');
 const User = require('./models/User');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -40,8 +41,9 @@ const helmet = require('helmet');
 // ...
 
 // CORS configuration for React Frontend
+const corsOrigin = process.env.FRONTEND_URL || 'http://localhost:5173';
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: corsOrigin,
     credentials: true
 }));
 
@@ -80,6 +82,7 @@ app.use(productRoutes);
 app.use(reviewRoutes);
 app.use(authRoutes);
 app.use(cartRoutes);
+app.use(orderRoutes);
 
 // seedDB(); 
 

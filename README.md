@@ -21,54 +21,99 @@ A production-ready, full-stack E-Commerce application built with the MERN stack 
 
 ## ✨ Features
 
--   **User Authentication**: Secure Sign Up & Login for Buyers and Sellers.
+-   **User Authentication**: Secure Sign Up & Login for Buyers and Sellers (Passport.js).
 -   **Role-Based Access**:
-    -   **Sellers**: Manage inventory (Add/Edit Products), view Dashboard.
-    -   **Buyers**: Browse products, manage Cart, checkout.
--   **Product Management**: CRUD operations for products.
--   **Shopping Cart**: Persistent cart functionality.
--   **Responsive Design**: Mobile-first UI with premium aesthetics.
+    -   **Sellers**: Manage inventory (Add/Edit Products), view Dashboard, manage customer orders.
+    -   **Buyers**: Browse products, add reviews, manage Cart, checkout, track orders.
+-   **Product Management**: CRUD operations for products with star ratings and reviews.
+-   **Shopping Cart**: Persistent cart with quantity management.
+-   **Order Management**: 
+    -   Buyers: Place orders with shipping address, view order history, track status.
+    -   Sellers: View orders for their products, mark as shipped/delivered.
+-   **Payment**: Cash on Delivery (COD) payment method.
+-   **Responsive Design**: Mobile-first UI with Tailwind CSS for premium aesthetics.
 
 ## 📂 Architecture
 
-The project follows a clean separation of concerns:
+The project follows a clean separation of concerns with server and client folders:
 
 ```
 root/
-├── client/                 # React Frontend
+├── server/                 # Express Backend
+│   ├── controllers/        # Business Logic
+│   ├── models/             # Database Schemas (Mongoose)
+│   ├── routes/             # API Endpoints
+│   ├── utils/              # Backend Utilities (Error handling, etc.)
+│   ├── middleware.js       # Auth & Validation Middleware
+│   ├── app.js              # Express App Setup
+│   ├── schema.js           # Joi Validation Schemas
+│   ├── seed.js             # Database Seeding Script
+│   ├── package.json
+│   └── .env                # Environment Variables (NOT in git)
+├── client/                 # React Frontend (Vite)
 │   ├── src/
 │   │   ├── components/     # Reusable UI Components
 │   │   ├── context/        # Auth State Management
 │   │   ├── pages/          # Application Pages
 │   │   ├── services/       # API Services
-│   │   └── utils/          # Helpers
-│   └── ...
-├── controllers/            # Business Logic
-├── models/                 # Database Schemas
-├── routes/                 # API Endpoints
-├── utils/                  # Backend Utilities (Error handling, etc.)
-├── middleware.js           # Auth & Validation Middleware
-└── app.js                  # Entry Point
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── vite.config.js
+├── .gitignore
+└── README.md
 ```
 
 ## 🛠️ Setup & Running
 
-**Prerequisites**: Node.js and MongoDB installed.
+**Prerequisites**: Node.js v16+ and MongoDB Atlas account (free tier available).
 
-1.  **Clone the repository**
-2.  **Backend Setup**:
-    ```bash
-    npm install
-    # Create .env file with DB_URL and SESSION_SECRET
-    node app.js
-    ```
-3.  **Frontend Setup**:
-    ```bash
-    cd client
-    npm install
-    npm run dev
-    ```
-4.  **Access**: Open `http://localhost:5173`
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd E-Commerce
+```
+
+### 2. Setup MongoDB Atlas (if not already done)
+Follow the [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) to:
+- Create a MongoDB Atlas cluster (free tier)
+- Create database user and get connection string
+- Set up IP whitelist
+
+### 3. Backend Setup
+```bash
+cd server
+npm install
+
+# Create .env file with your MongoDB Atlas credentials
+# DB_URL=mongodb+srv://username:password@cluster.xxxxx.mongodb.net/ecommerce_app?retryWrites=true&w=majority
+# SESSION_SECRET=your_secret_key
+# FRONTEND_URL=http://localhost:5173
+# NODE_ENV=development
+
+node app.js
+# Server runs on http://localhost:8080
+```
+
+### 4. Frontend Setup
+```bash
+cd client
+npm install
+npm run dev
+# Frontend runs on http://localhost:5173
+```
+
+### 5. Access the Application
+- **Frontend**: Open `http://localhost:5173`
+- **Backend API**: `http://localhost:8080`
+
+## 🧪 Sample Data
+
+To seed the database with sample products:
+```bash
+cd server
+node seed.js
+```
 
 ## 🛡️ Security Highlights
 -   **Input Validation**: ALL inputs validated server-side using Joi.
