@@ -47,6 +47,9 @@ app.use(cors({
     credentials: true
 }));
 
+// Trust proxy for Render.com (and similar PaaS) reverse proxies
+app.set('trust proxy', 1);
+
 app.use(helmet()); // Secure HTTP headers
 // app.use(mongoSanitize()); // Prevent NoSQL Injection - Disabled due to Express 5 incompatibility
 
@@ -56,14 +59,19 @@ app.use(express.json()); // Allow parsing JSON bodies
 app.use(methodOverride('_method'));
 
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 let configsession = {
     secret: process.env.SESSION_SECRET || "keyboard cat",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         expires: Date.now() + 24 * 7 * 60 * 60 * 1000,
-        maxAge: 24 * 7 * 60 * 60 * 1000
+        maxAge: 24 * 7 * 60 * 60 * 1000,
+        // Required for cross-origin cookies (Vercel frontend -> Render backend)
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax'
     }
 }
 

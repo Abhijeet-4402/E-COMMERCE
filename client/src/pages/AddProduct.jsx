@@ -31,10 +31,6 @@ const AddProduct = () => {
 
     return (
         <Layout>
-// Header change is implied in the block replacement if I did full block, but let's do targeted.
-            // Wait, I can't do multiple targeted across the file easily in one chunk if they are far apart.
-            // Start line 35, End line 54 covers the form.
-
             <div className="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow">
                 <h2 className="text-2xl font-bold mb-6 text-gray-800">List New Product</h2>
                 {error && <div className="bg-red-100 text-red-700 p-3 rounded mb-4">{error}</div>}
