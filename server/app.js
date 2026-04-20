@@ -20,7 +20,7 @@ const User = require('./models/User');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const dbUrl = process.env.DB_URL || 'mongodb://127.0.0.1:27017/ecommerce_app';
+const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl)
     .then(() => {
         console.log("DB connected sucessfully");
