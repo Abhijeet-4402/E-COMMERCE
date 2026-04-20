@@ -42,7 +42,7 @@ const helmet = require('helmet');
 // ...
 
 // CORS configuration for React Frontend
-const corsOrigin = process.env.FRONTEND_URL || 'http://localhost:5173';
+const corsOrigin = process.env.FRONTEND_URL;
 app.use(cors({
     origin: corsOrigin,
     credentials: true
@@ -63,7 +63,7 @@ app.use(methodOverride('_method'));
 const isProduction = process.env.NODE_ENV === 'production';
 
 let configsession = {
-    secret: process.env.SESSION_SECRET || "keyboard cat",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     // Persist sessions in MongoDB so they survive Render restarts/spin-downs
