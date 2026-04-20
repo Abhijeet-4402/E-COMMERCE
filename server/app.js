@@ -19,7 +19,7 @@ const orderRoutes = require('./routes/order');
 const User = require('./models/User');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const MongoStore = require('connect-mongo');
+const { MongoStore } = require('connect-mongo');
 
 const dbUrl = process.env.DB_URL;
 mongoose.connect(dbUrl)
@@ -67,9 +67,9 @@ let configsession = {
     resave: false,
     saveUninitialized: false,
     // Persist sessions in MongoDB so they survive Render restarts/spin-downs
-    store: new MongoStore({
+    store: MongoStore.create({
         mongoUrl: process.env.DB_URL,
-        touchAfter: 24 * 3600 // Only update session in DB once per day unless data changes
+        touchAfter: 24 * 3600
     }),
     cookie: {
         httpOnly: true,
