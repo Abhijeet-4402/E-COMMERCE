@@ -67,7 +67,7 @@ let configsession = {
     resave: false,
     saveUninitialized: false,
     // Persist sessions in MongoDB so they survive Render restarts/spin-downs
-    store: MongoStore.create({
+    store: new MongoStore({
         mongoUrl: process.env.DB_URL,
         touchAfter: 24 * 3600 // Only update session in DB once per day unless data changes
     }),
